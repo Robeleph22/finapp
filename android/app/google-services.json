@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1043457731125",
+    "project_id": "financialapp-d6925",
+    "storage_bucket": "financialapp-d6925.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043457731125:android:4263138803d89300821f7c",
+        "android_client_info": {
+          "package_name": "com.example.financialapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043457731125-laj4kq6h46t46eoruvgoabv4epi365i9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiDRPLcZlYys-rF4JaVIwGn-qofOUlCfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043457731125-laj4kq6h46t46eoruvgoabv4epi365i9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043457731125:android:5092a1d278843c1b821f7c",
+        "android_client_info": {
+          "package_name": "com.example.finapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043457731125-laj4kq6h46t46eoruvgoabv4epi365i9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiDRPLcZlYys-rF4JaVIwGn-qofOUlCfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043457731125-laj4kq6h46t46eoruvgoabv4epi365i9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
