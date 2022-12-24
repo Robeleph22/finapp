@@ -97,7 +97,6 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                 leading: ChangeThemeButtonWidget(),
                 title: Text('Dark Mode',style: TextStyle(fontSize: 18,color: Colors.white)),
               ),
-              Divider(color: Colors.green,),
 
             ],
 

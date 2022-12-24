@@ -1,21 +1,22 @@
 import 'package:hive/hive.dart';
 
-class AppDataBase{
+class AppDataBase {
   List AddTransactionList = [];
   final myBox = Hive.box("mybox");
 
-  void createInitialData(){
+  void createInitialData() {
     AddTransactionList = [
-      ["Slide To Delete Example ","0.00"],
+      [
+        "Transaction","0.00",
+      ],
     ];
   }
 
-  void loadData(){
-    AddTransactionList =  myBox.get("TRANSACTIONLIST");
+  void loadData() {
+    AddTransactionList = myBox.get("TRANSACTIONLIST");
   }
 
-  void UpdateData(){
+  void UpdateData() {
     myBox.put("TRANSACTIONLIST", AddTransactionList);
   }
-
 }

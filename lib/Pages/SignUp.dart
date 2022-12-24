@@ -126,7 +126,7 @@ class _SignUpState extends State<SignUp> {
                             icon: Icon(Icons.person,color: Theme.of(context).bottomAppBarColor),
                             border: InputBorder.none,
                             hintText: "First Name",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                           ),
                         ),
                       ),
@@ -163,7 +163,7 @@ class _SignUpState extends State<SignUp> {
                             icon: Icon(Icons.person,color: Theme.of(context).bottomAppBarColor),
                             border: InputBorder.none,
                             hintText: "Last Name",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                           ),
                         ),
                       ),
@@ -202,7 +202,7 @@ class _SignUpState extends State<SignUp> {
                                 icon: Icon(Icons.email,color: Theme.of(context).bottomAppBarColor),
                                 border: InputBorder.none,
                                 hintText: "Email",
-                                hintStyle: TextStyle(color: Colors.black),
+                                hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                               )
                           )
                       ),
@@ -239,7 +239,7 @@ class _SignUpState extends State<SignUp> {
                             icon: Icon(Icons.lock,color: Theme.of(context).bottomAppBarColor),
                             border: InputBorder.none,
                             hintText: "Password",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
 
                           ),
                         ),
@@ -277,7 +277,7 @@ class _SignUpState extends State<SignUp> {
                             icon: Icon(Icons.lock,color: Theme.of(context).bottomAppBarColor),
                             border: InputBorder.none,
                             hintText: "Confirm Password",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
 
                           ),
                         ),

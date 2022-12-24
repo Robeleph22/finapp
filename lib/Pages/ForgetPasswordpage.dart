@@ -43,6 +43,14 @@ class _ForgetPasswordpageState extends State<ForgetPasswordpage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
+      appBar: AppBar(
+        title: Text("Forget Password") ,
+        titleTextStyle: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),
+        centerTitle: true,
+        backgroundColor:Colors.blueGrey.shade900,
+        elevation: 0,
+      ),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -88,7 +96,7 @@ class _ForgetPasswordpageState extends State<ForgetPasswordpage> {
                     icon: Icon(Icons.email_outlined,color: Theme.of(context).bottomAppBarColor),
                     border: InputBorder.none,
                     hintText: "Email",
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                   ),
                 ),
               ),
