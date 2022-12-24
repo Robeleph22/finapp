@@ -144,7 +144,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 leading: ImageIcon(AssetImage('Icons/sign-out.png'),color: Theme.of(context).iconTheme.color,),
                 title: Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.white),),
                 onTap: () async {
-                  await FirebaseServices().SihnOut();
+                  await FirebaseServices().SignOut();
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
                   FirebaseAuth.instance.signOut();
                 },

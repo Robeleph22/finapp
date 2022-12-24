@@ -25,7 +25,7 @@ class MyThemes {
   );
 
   static final lightTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.white70,
       primaryColor: Colors.black,
       colorScheme: ColorScheme.light(),
       iconTheme: IconThemeData(color: Colors.white),

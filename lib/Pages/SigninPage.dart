@@ -63,9 +63,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 25,),
 
-                SizedBox(height: 100,width: 100,
-                    child: Image.asset("Icons/lock.png")),
+                // SizedBox(height: 100,width: 100,
+                //     child: Image.asset("Icons/lock.png")),
                 Text(
                      "Welcome Back",
                       style: TextStyle(fontSize: 30,
@@ -73,13 +74,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                 ),
 
+                SizedBox(height: 40,),
 
-
-                //Email TexField
-
-                SizedBox(height: 30,),
-
-
+                //Email textfiled
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -87,9 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blueGrey.withOpacity(0.6),
+                          color: Colors.greenAccent.withOpacity(0.4),
                           spreadRadius: 2,
-                          blurRadius: 4,
+                          blurRadius: 1,
                           offset: Offset(0, 1), // changes position of shadow
                         ),
                       ],
@@ -116,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 //Password TexField
 
-                SizedBox(height: 25,),
+                SizedBox(height: 30,),
 
 
                 Padding(
@@ -125,9 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blueGrey.withOpacity(0.6),
+                          color: Colors.greenAccent.withOpacity(0.4),
                           spreadRadius: 2,
-                          blurRadius: 4,
+                          blurRadius: 1,
                           offset: Offset(0, 1), // changes position of shadow
                         ),
                       ],
@@ -154,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 25),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -180,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                SizedBox(height: 30,),
+                SizedBox(height: 35,),
 
                 //signin
                 Padding(
@@ -204,17 +201,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                SizedBox(height: 40,),
+                SizedBox(height: 50,),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Row(
                     children: [
                       Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text("Or Continue Whith",style: TextStyle(fontSize: 18),),
+                        child: Text("Or Continue With",style: TextStyle(fontSize: 18),),
                       ),
                       Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
                       ),
@@ -236,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
                 //Register now
-                SizedBox(height: 25,),
+                SizedBox(height: 35,),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -244,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                     RichText(text: TextSpan(
                       children: [
                         TextSpan(text: "If not a member ",style: TextStyle(fontSize: 20,color: Theme.of(context).textTheme.caption?.color)),
-                        TextSpan(text: "Register Now",style: TextStyle(fontSize: 20,color: Colors.greenAccent),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()))),
+                        TextSpan(text: " Register Now",style: TextStyle(fontSize: 20,color: Colors.greenAccent),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()))),
                         // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
                       ]
                     )

@@ -119,6 +119,8 @@ flutter:
     - Icons/Genzebe png.png
     - Icons/google.png
     - Icons/lock.png
+    - Icons/icons8-google-64.png
+    - Icons/strong_dollar.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

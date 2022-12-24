@@ -97,9 +97,9 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.6),
+                            color: Colors.greenAccent.withOpacity(0.4),
                             spreadRadius: 2,
-                            blurRadius: 4,
+                            blurRadius: 1,
                             offset: Offset(0, 1), // changes position of shadow
                           ),
                         ],
@@ -134,9 +134,9 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.6),
+                            color: Colors.greenAccent.withOpacity(0.4),
                             spreadRadius: 2,
-                            blurRadius: 4,
+                            blurRadius: 1,
                             offset: Offset(0, 1), // changes position of shadow
                           ),
                         ],
@@ -172,11 +172,11 @@ class _SignUpState extends State<SignUp> {
                         boxShadow: [
 
                           BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.6),
+                            color: Colors.greenAccent.withOpacity(0.4),
                             spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: Offset(0, 1),
-                          )
+                            blurRadius: 1,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
                         ],
                         color: Theme.of(context).backgroundColor,
                         border: Border.all(color: Colors.blueGrey.shade900),
@@ -209,11 +209,11 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.6),
+                            color: Colors.greenAccent.withOpacity(0.4),
                             spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: Offset(0, 1),
-                          )
+                            blurRadius: 1,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
                         ],
                         color: Theme.of(context).backgroundColor,
                         border: Border.all(color: Colors.blueGrey.shade900),
@@ -247,11 +247,11 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.6),
+                            color: Colors.greenAccent.withOpacity(0.4),
                             spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: Offset(0, 1),
-                          )
+                            blurRadius: 1,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
                         ],
                         color:Theme.of(context).backgroundColor,
                         border: Border.all(color: Colors.blueGrey.shade900),
@@ -301,7 +301,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 40,),
 
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       children: [
                         Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)

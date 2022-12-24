@@ -56,8 +56,8 @@ class _ForgetPasswordpageState extends State<ForgetPasswordpage> {
         children: [
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text("Forgot Your Password No Problem",style: TextStyle(fontSize: 35,color: Theme.of(context).textTheme.caption?.color),),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Text("Forgot Your Password No Problem",style: TextStyle(fontSize: 30,color: Theme.of(context).textTheme.caption?.color),),
           ),
 
           SizedBox(height: 25,),
@@ -75,9 +75,9 @@ class _ForgetPasswordpageState extends State<ForgetPasswordpage> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.blueGrey.withOpacity(0.6),
+                    color: Colors.greenAccent.withOpacity(0.4),
                     spreadRadius: 2,
-                    blurRadius: 4,
+                    blurRadius: 1,
                     offset: Offset(0, 1), // changes position of shadow
                   ),
                 ],

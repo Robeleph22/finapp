@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
 class FirebaseServices  {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-  signInWithGoogle() async{
+   signInWithGoogle() async{
+
     try{
+
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
 
@@ -21,12 +24,13 @@ class FirebaseServices  {
           await _auth.signInWithCredential(authCredential);
       }
     }
+
    on FirebaseAuthException catch (e){
       print(e.message);
       throw e;
     }
   }
-  SihnOut() async{
+  SignOut() async{
     await _auth.signOut();
     await _googleSignIn.signOut();
   }
