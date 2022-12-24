@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
+import '../Utility/SqureTile.dart';
+import '../auth/signinwithgoogle.dart';
 import '../main.dart';
+import 'HomePage.dart';
 import 'SigninPage.dart';
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -88,18 +91,6 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 10,),
-                  Text(
-                    "Welcome",
-                    style: TextStyle(fontSize: 45,
-                        color: Theme.of(context).textTheme.caption?.color
-                    ),
-
-                  ),
-
-
-                  //First Name TexField
-
-                  SizedBox(height: 30,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -307,6 +298,35 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
+                  SizedBox(height: 40,),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text("Or Continue With",style: TextStyle(fontSize: 18),),
+                        ),
+                        Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 30,),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SquareTile(imagePath: "Icons/google.png", onTap: () async {
+                        await FirebaseServices().signInWithGoogle();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      },)
+                    ],
+                  ),
 
                   SizedBox(height: 20,),
 
@@ -316,7 +336,7 @@ class _SignUpState extends State<SignUp> {
                       RichText(text: TextSpan(
                           children: [
                             TextSpan(text: "If a member! ",style: TextStyle(fontSize: 18,color: Theme.of(context).textTheme.caption?.color)),
-                            TextSpan(text: "Login Now",style: TextStyle(fontSize: 18,color: Colors.green),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))),
+                            TextSpan(text: "Login Now",style: TextStyle(fontSize: 18,color: Colors.greenAccent),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))),
                             // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
                           ]
                       )

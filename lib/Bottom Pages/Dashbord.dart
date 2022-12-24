@@ -1,11 +1,15 @@
 import 'package:finapp/Chart/LCharts.dart';
 import 'package:finapp/Drawer%20Pages/About.dart';
 import 'package:finapp/Drawer%20Pages/ProfilePage.dart';
+import 'package:finapp/Pages/HelloPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Drawer Pages/SettingPage.dart';
+import '../Pages/SignUp.dart';
 import '../Provider/ChangeThemeButton.dart';
+import '../auth/signinwithgoogle.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -40,6 +44,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                   image: DecorationImage(
                     fit: BoxFit.fitHeight,
                     image: AssetImage('Icons/man.png'),
+                    // image: AssetImage(FirebaseAuth.instance.currentUser!.photoURL),
                   ),
                 ),
               ),
@@ -47,10 +52,11 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                     color: Colors.blueGrey.shade900
                 ),
                 accountName: Text(
-                  'Robel Ephrem',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Theme.of(context).iconTheme.color),
+                    "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                 ),
                 accountEmail: Text(
-                  'robelephrem2@gmail.com',style: TextStyle(fontWeight: FontWeight.bold,color: Theme.of(context).iconTheme.color),
+                    "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                    color: Colors.cyan[200])
                 ),
               ),
               ListTile(
@@ -86,7 +92,9 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
               ListTile(
                 leading: ImageIcon(AssetImage('Icons/sign-out.png'),color: Theme.of(context).iconTheme.color,),
                 title: Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.white),),
-                onTap: () {
+                onTap: () async {
+                  await FirebaseServices().SihnOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
                   FirebaseAuth.instance.signOut();
                 },
               ),
@@ -109,13 +117,22 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 35.0),
-              child: Row(
-                children: [
-                  Text("Welcome Back,  Robel Ephrem",
-                    style: GoogleFonts.bebasNeue(fontSize: 25,
-                        color: Theme.of(context).textTheme.caption?.color),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30.0),
+                child: Row(
+                  children: [
+                    RichText(text: TextSpan(
+                        children: [
+                          TextSpan(text: "Welcome Back, ",style: GoogleFonts.bebasNeue(fontSize: 30,
+                              color: Theme.of(context).textTheme.caption?.color)),
+                          TextSpan(text: "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30,
+                              color: Colors.cyan[200])),
+                          // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
+                        ]
+                    )
+                    )
+                  ],
+                ),
               ),
             ),
             Padding(

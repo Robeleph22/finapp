@@ -1,4 +1,7 @@
 
+import 'package:finapp/Pages/HomePage.dart';
+import 'package:finapp/Utility/SqureTile.dart';
+import 'package:finapp/auth/signinwithgoogle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -24,7 +27,8 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: _emailcontroller.text, password: _passwordcontroller.text);
     }on FirebaseAuthException catch (e) {
-      print(e);
+      print(e.message);
+
       showDialog(context: context, builder: (context){
         return AlertDialog(
           content: Text(e.message.toString()),
@@ -59,14 +63,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 35,),
-                Center(
-                  child: Text(
-                       "Welcome Back",
-                        style: TextStyle(fontSize: 50,
-                          color: Theme.of(context).textTheme.caption?.color
-                        ),
-                  ),
+
+                SizedBox(height: 100,width: 100,
+                    child: Image.asset("Icons/lock.png")),
+                Text(
+                     "Welcome Back",
+                      style: TextStyle(fontSize: 30,
+                        color: Theme.of(context).textTheme.caption?.color
+                      ),
                 ),
 
 
@@ -112,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 //Password TexField
 
-                SizedBox(height: 15,),
+                SizedBox(height: 25,),
 
 
                 Padding(
@@ -155,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
                         onTap: (){
@@ -169,17 +173,16 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           );
                 },
-                        child: Text('Forget Password',
-                            style: TextStyle(fontSize: 18,color: Colors.green)),
+                        child: Text('Forget Password ?',
+                            style: TextStyle(fontSize: 18,color: Colors.greenAccent)),
                       ),
                     ],
                   ),
                 ),
 
-                //Signin
+                SizedBox(height: 30,),
 
-                SizedBox(height: 15,),
-
+                //signin
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: SizedBox(height: 55,width: 350,
@@ -201,8 +204,38 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                //Register now
+                SizedBox(height: 40,),
 
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text("Or Continue Whith",style: TextStyle(fontSize: 18),),
+                      ),
+                      Expanded(child: Divider(thickness: 1,color: Colors.greenAccent)
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 30,),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SquareTile(imagePath: "Icons/google.png", onTap: () async {
+                      await FirebaseServices().signInWithGoogle();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    },)
+                  ],
+                ),
+
+
+                //Register now
                 SizedBox(height: 25,),
 
                 Row(
@@ -211,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                     RichText(text: TextSpan(
                       children: [
                         TextSpan(text: "If not a member ",style: TextStyle(fontSize: 20,color: Theme.of(context).textTheme.caption?.color)),
-                        TextSpan(text: "Register Now",style: TextStyle(fontSize: 20,color: Colors.green),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()))),
+                        TextSpan(text: "Register Now",style: TextStyle(fontSize: 20,color: Colors.greenAccent),recognizer: TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()))),
                         // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
                       ]
                     )

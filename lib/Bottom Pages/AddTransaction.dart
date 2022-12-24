@@ -6,9 +6,11 @@ import 'package:hive/hive.dart';
 import '../Drawer Pages/About.dart';
 import '../Drawer Pages/ProfilePage.dart';
 import '../Drawer Pages/SettingPage.dart';
+import '../Pages/HelloPage.dart';
 import '../Provider/ChangeThemeButton.dart';
 import '../Utility/AddAlertDialog.dart';
 import '../Utility/TransactionList.dart';
+import '../auth/signinwithgoogle.dart';
 
 
 class AddTransaction extends StatefulWidget {
@@ -101,10 +103,11 @@ class _AddTransactionState extends State<AddTransaction> {
                     color: Colors.blueGrey.shade900
                 ),
                 accountName: Text(
-                  'Robel Ephrem',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Theme.of(context).iconTheme.color),
+                    "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                 ),
                 accountEmail: Text(
-                  'robelephrem2@gmail.com',style: TextStyle(fontWeight: FontWeight.bold,color: Theme.of(context).iconTheme.color),
+                    "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                    color: Colors.cyan[200])
                 ),
               ),
               ListTile(
@@ -140,7 +143,9 @@ class _AddTransactionState extends State<AddTransaction> {
               ListTile(
                 leading: ImageIcon(AssetImage('Icons/sign-out.png'),color: Theme.of(context).iconTheme.color,),
                 title: Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.white),),
-                onTap: () {
+                onTap: () async {
+                  await FirebaseServices().SihnOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
                   FirebaseAuth.instance.signOut();
                 },
               ),
