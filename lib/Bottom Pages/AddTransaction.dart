@@ -23,7 +23,6 @@ class AddTransaction extends StatefulWidget {
 class _AddTransactionState extends State<AddTransaction> {
   final _amount = TextEditingController();
   final _controller = TextEditingController();
-
   final _myBox = Hive.box('mybox');
   AppDataBase db = AppDataBase();
 
@@ -40,7 +39,6 @@ class _AddTransactionState extends State<AddTransaction> {
   void saveTransaction(){
     setState(() {
       db.AddTransactionList.add([_controller.text,_amount.text]);
-
     });
     Navigator.of(context).pop();
     db.UpdateData();
@@ -83,88 +81,89 @@ class _AddTransactionState extends State<AddTransaction> {
         title: Center(child: Text('Transaction',style: TextStyle(color: Colors.white),)),
       ),
       drawer: Drawer(
-        child: Container(
-          color:Colors.grey.shade900,
-          child: ListView(
-            children: [
-              UserAccountsDrawerHeader(currentAccountPicture: Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                width: 10.0,
-                height: 10.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: AssetImage('Icons/man.png'),
+      child: Container(
+        color:Colors.grey.shade900,
+        child: ListView(
+          children: [
+            SizedBox(height: 180,
+              child: UserAccountsDrawerHeader(currentAccountPicture: CircleAvatar(
+                child: ClipOval(
+                  child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
+
                 decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade900
+                  color: Colors.blueGrey.shade900,
+
                 ),
                 accountName: Text(
                     "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                 ),
                 accountEmail: Text(
-                    "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
-                    color: Colors.cyan[200])
-                ),
+                  "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                    color: Colors.cyan[200]),),
+
+
               ),
-              ListTile(
-                leading: ImageIcon(AssetImage('Icons/user.png'),color: Theme.of(context).iconTheme.color,),
-                title: Text('Profile',style: TextStyle(fontSize: 18,color: Colors.white),),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile()));
-                },
-              ),
-              Divider(color: Colors.green,),
+            ),
+            ListTile(
+              leading: ImageIcon(AssetImage('Icons/user.png'),color: Theme.of(context).iconTheme.color,),
+              title: Text('Profile',style: TextStyle(fontSize: 18,color: Colors.white),),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Profile()));
+              },
+            ),
+            Divider(color: Colors.green,),
 
-              ListTile(
-                leading: ImageIcon(AssetImage('Icons/setting.png'),color: Theme.of(context).iconTheme.color,),
-                title: Text('Settings',style: TextStyle(fontSize: 18,color: Colors.white),),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingPage()));
-                },
-              ),
-              Divider(color: Colors.green,),
-
-
-              ListTile(
-                leading: ImageIcon(AssetImage('Icons/information.png'),color: Theme.of(context).iconTheme.color,),
-                title: Text('About',style: TextStyle(fontSize: 18,color: Colors.white)),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
-                },
-              ),
-
-              Divider(color: Colors.green),
+            ListTile(
+              leading: ImageIcon(AssetImage('Icons/setting.png'),color: Theme.of(context).iconTheme.color,),
+              title: Text('Settings',style: TextStyle(fontSize: 18,color: Colors.white),),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingPage()));
+              },
+            ),
+            Divider(color: Colors.green,),
 
 
-              ListTile(
-                leading: ImageIcon(AssetImage('Icons/sign-out.png'),color: Theme.of(context).iconTheme.color,),
-                title: Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.white),),
-                onTap: () async {
-                  await FirebaseServices().SignOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
-                  FirebaseAuth.instance.signOut();
-                },
-              ),
+            ListTile(
+              leading: ImageIcon(AssetImage('Icons/information.png'),color: Theme.of(context).iconTheme.color,),
+              title: Text('About',style: TextStyle(fontSize: 18,color: Colors.white)),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
+              },
+            ),
 
-              Divider(color: Colors.green,),
+            Divider(color: Colors.green),
 
-              ListTile(
-                leading: ChangeThemeButtonWidget(),
-                title: Text('Dark Mode',style: TextStyle(fontSize: 18,color: Colors.white)),
-              ),
-              Divider(color: Colors.green,),
 
-            ],
+            ListTile(
+              leading: ImageIcon(AssetImage('Icons/sign-out.png'),color: Theme.of(context).iconTheme.color,),
+              title: Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.white),),
+              onTap: () async {
+                await FirebaseServices().SignOut();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
+                FirebaseAuth.instance.signOut();
+              },
+            ),
 
-          ),
+            Divider(color: Colors.green,),
+
+            ListTile(
+              leading: ChangeThemeButtonWidget(),
+              title: Text('Dark Mode',style: TextStyle(fontSize: 18,color: Colors.white)),
+            ),
+
+          ],
+
         ),
       ),
+    ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.cyan[600],
         onPressed: Add_Trsnsaction,
         child: ImageIcon(AssetImage('Icons/add.png'),color: Theme.of(context).bottomAppBarColor),
       ),

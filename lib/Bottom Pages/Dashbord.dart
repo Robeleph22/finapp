@@ -1,13 +1,14 @@
-import 'package:finapp/Chart/LCharts.dart';
+
 import 'package:finapp/Drawer%20Pages/About.dart';
 import 'package:finapp/Drawer%20Pages/ProfilePage.dart';
 import 'package:finapp/Pages/HelloPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Chart/syncfusion.dart';
+import '../Chart/syncfusionSplinechart.dart';
 import '../Drawer Pages/SettingPage.dart';
-import '../Pages/SignUp.dart';
+
 import '../Provider/ChangeThemeButton.dart';
 import '../auth/signinwithgoogle.dart';
 
@@ -55,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                   ),
                   accountEmail: Text(
                       "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
-                      color: Colors.cyan[200]),),
+                      color: Colors.greenAccent),),
 
 
                 ),
@@ -119,7 +120,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 35.0),
               child: Padding(
-                padding: const EdgeInsets.only(right: 30.0),
+                padding: const EdgeInsets.only(right: 20.0),
                 child: Row(
                   children: [
                     RichText(text: TextSpan(
@@ -127,7 +128,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                           TextSpan(text: "Welcome Back, ",style: GoogleFonts.bebasNeue(fontSize: 30,
                               color: Theme.of(context).textTheme.caption?.color)),
                           TextSpan(text: "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30,
-                              color: Colors.cyan[200])),
+                              color: Colors.greenAccent)),
                           // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
                         ]
                     )
@@ -359,21 +360,29 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                       color: Theme.of(context).textTheme.caption?.color)),
             ),
 
-            SizedBox(height: 30),
+
+            SizedBox(height: 10),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
-                height: 350,
-                width: 350,
-                child: Lcharts(),
+                height: 500,
+                width: 450,
+                child: syncfusionPiechart(),
               ),
             ),
-            SizedBox(height: 30,),
 
+            SizedBox(height: 10),
 
-
-            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                height: 450,
+                width: 450,
+                child: syncfusionSplinechart(),
+              ),
+            ),
+            SizedBox(height: 100),
 
           ],
         ),

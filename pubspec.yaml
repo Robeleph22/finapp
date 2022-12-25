@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.1.0
+  http: ^0.13.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,7 +51,9 @@ dependencies:
   flutter_slidable: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  syncfusion_flutter_charts: ^20.3.60
+  dropdown_search: ^5.0.5
+  syncfusion_flutter_charts: ^20.4.38
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

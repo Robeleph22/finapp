@@ -33,27 +33,29 @@ class _ReportPageState extends State<ReportPage> {
           color:Colors.grey.shade900,
           child: ListView(
             children: [
-              UserAccountsDrawerHeader(currentAccountPicture: Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                width: 10.0,
-                height: 10.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: AssetImage('Icons/man.png'),
+              SizedBox(height: 180,
+                child: UserAccountsDrawerHeader(currentAccountPicture: CircleAvatar(
+                  child: ClipOval(
+                    child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-                decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade900
-                ),
-                accountName: Text(
-                    "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
-                ),
-                accountEmail: Text(
+
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.shade900,
+
+                  ),
+                  accountName: Text(
+                      "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
+                  ),
+                  accountEmail: Text(
                     "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
-                    color: Colors.cyan[200])
+                      color: Colors.cyan[200]),),
+
+
                 ),
               ),
               ListTile(
@@ -102,7 +104,6 @@ class _ReportPageState extends State<ReportPage> {
                 leading: ChangeThemeButtonWidget(),
                 title: Text('Dark Mode',style: TextStyle(fontSize: 18,color: Colors.white)),
               ),
-              Divider(color: Colors.green,),
 
             ],
 

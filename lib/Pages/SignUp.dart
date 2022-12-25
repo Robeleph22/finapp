@@ -2,12 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-
 import '../Utility/SqureTile.dart';
 import '../auth/signinwithgoogle.dart';
-import '../main.dart';
 import 'HomePage.dart';
 import 'SigninPage.dart';
 class SignUp extends StatefulWidget {
@@ -22,8 +18,19 @@ class _SignUpState extends State<SignUp> {
   final _passwordcontroller = TextEditingController();
   final _firstnamecontroller = TextEditingController();
   final _lastnamecontroller = TextEditingController();
+  final _username = TextEditingController();
   final _confirmpasswordcontroller = TextEditingController();
 
+  @override
+  void dispose() {
+    _lastnamecontroller.dispose();
+    _firstnamecontroller.dispose();
+    _username.dispose();
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+    _confirmpasswordcontroller.dispose();
+    super.dispose();
+  }
 
 
   Future signup() async{
@@ -32,21 +39,26 @@ class _SignUpState extends State<SignUp> {
               email: _emailcontroller.text.trim(),
               password: _passwordcontroller.text.trim(),
           );
+
           //add user details
       addUserDetails(
           _firstnamecontroller.text.trim(),
           _lastnamecontroller.text.trim(),
+          _username.text.trim(),
           _emailcontroller.text.trim(),
       );
     }Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
-  Future addUserDetails(
-      String firstname,String lastname,String email)async{
-    print(firstname + lastname + email);
-    await FirebaseFirestore.instance.collection('User').add({
+  Future addUserDetails
+      ( String firstname, String lastname, String username, String email)async{
 
+    print(
+        firstname + lastname + username + email
+    );
+    await FirebaseFirestore.instance.collection('User').add({
       'first name':firstname ,
       'last name': lastname,
+      'user name': username,
       'email ': email,
     });
 
@@ -59,15 +71,7 @@ class _SignUpState extends State<SignUp> {
       return false;
     }
   }
-  @override
-  void dispose() {
-    _lastnamecontroller.dispose();
-    _firstnamecontroller.dispose();
-    _emailcontroller.dispose();
-    _passwordcontroller.dispose();
-    _confirmpasswordcontroller.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +158,41 @@ class _SignUpState extends State<SignUp> {
                             icon: Icon(Icons.person,color: Theme.of(context).bottomAppBarColor),
                             border: InputBorder.none,
                             hintText: "Last Name",
+                            hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 25,),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.greenAccent.withOpacity(0.4),
+                            spreadRadius: 2,
+                            blurRadius: 1,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ],
+
+                        color:Theme.of(context).backgroundColor,
+                        border: Border.all(color: Colors.blueGrey.shade900),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: TextField(
+                          style: TextStyle(color: Theme.of(context).textTheme.caption?.color),
+                          controller: _username,
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.person,color: Theme.of(context).bottomAppBarColor),
+                            border: InputBorder.none,
+                            hintText: "User Name",
                             hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                           ),
                         ),
@@ -277,7 +316,7 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   //Signup
-                  SizedBox(height: 25,),
+                  SizedBox(height: 20,),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -298,7 +337,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  SizedBox(height: 40,),
+                  SizedBox(height: 12,),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -316,7 +355,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  SizedBox(height: 30,),
+                  SizedBox(height: 10,),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

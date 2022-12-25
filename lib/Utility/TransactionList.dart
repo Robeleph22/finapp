@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-class TransactionList extends StatelessWidget {
+class TransactionList extends StatefulWidget {
   final String TransactionName;
   final String TransactionAmount;
   Function (BuildContext)? DeleteList;
@@ -17,7 +18,11 @@ class TransactionList extends StatelessWidget {
 
    });
 
+  @override
+  State<TransactionList> createState() => _TransactionListState();
+}
 
+class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +32,7 @@ class TransactionList extends StatelessWidget {
           motion: StretchMotion(),
           children: [
             SlidableAction(
-              onPressed: DeleteList,
+              onPressed: widget.DeleteList,
               icon: Icons.delete_forever,
               backgroundColor: Colors.red,
               borderRadius: BorderRadius.circular(12),
@@ -43,7 +48,7 @@ class TransactionList extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
                     children: [
-                      Text(TransactionName,style: GoogleFonts.aBeeZee(fontSize: 18,
+                      Text(widget.TransactionName,style: GoogleFonts.aBeeZee(fontSize: 18,
                           color: Colors.white)),
 
                       SizedBox(width: 10,),
@@ -56,7 +61,10 @@ class TransactionList extends StatelessWidget {
 
                       SizedBox(width: 5,),
 
-                      Text(TransactionAmount,style: TextStyle(fontSize: 18,color: Colors.white),)
+                      Text(widget.TransactionAmount,style: TextStyle(fontSize: 18,color: Colors.white),),
+
+                      SizedBox(width: 5,),
+
                     ],
                   )
                 ),

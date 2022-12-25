@@ -1,7 +1,13 @@
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:finapp/Utility/Button.dart';
 import 'package:flutter/material.dart';
 
-class DialogBox extends StatelessWidget {
+import 'DatePicker.dart';
+import 'DropDown.dart';
+
+
+class DialogBox extends StatefulWidget {
   final  NameController;
   final  AmountController;
   VoidCallback onAdd;
@@ -14,15 +20,22 @@ class DialogBox extends StatelessWidget {
     required this.onAdd,
     required this.onCancel,
   });
+
+  @override
+  State<DialogBox> createState() => _DialogBoxState();
+}
+
+class _DialogBoxState extends State<DialogBox> {
+
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      content: Container(
-        height: 300,
-        width: 500,
-        child: SingleChildScrollView(
-
+    return SingleChildScrollView(
+      child: AlertDialog(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        content: Container(
+          height: 470,
+          width: 500,
           child: Column(
             children: [
               Text("By Adding Your Transaction You Can Track Your Expense",style: TextStyle(fontSize: 20,color: Theme.of(context).textTheme.caption?.color),textAlign: TextAlign.center,),
@@ -31,9 +44,10 @@ class DialogBox extends StatelessWidget {
 
               Column(children:  [
                 TextField(
-                  controller: NameController,
+                  controller: widget.NameController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
+
                       hintText: "Add Expense Name",
                     hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                   ),)
@@ -44,7 +58,7 @@ class DialogBox extends StatelessWidget {
               Column(
                 children:  [
                 TextField(
-                  controller: AmountController,
+                  controller: widget.AmountController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Add Expense Amount",
@@ -52,68 +66,21 @@ class DialogBox extends StatelessWidget {
                   ),)
               ],),
 
-              // SizedBox(height: 20,),
-              //
-              // Column(children:  [
-              // Form(
-              // key: _formKey,
-              // child: Padding(
-              // padding: const EdgeInsets.symmetric(horizontal: 5),
-              // child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              // children: [
-              // DropDownTextField(
-              // listSpace: 20,
-              // dropdownRadius: 18,
-              // listPadding: ListPadding(top: 20),
-              // enableSearch: true,
-              // validator: (value) {
-              // if (value == null) {
-              // return "Required field";
-              // } else {
-              // return null;
-              // }
-              // },
-              // dropDownList: [
-              // DropDownValueModel(name: 'Gym', value: "value1"),
-              // DropDownValueModel(name: 'School', value: "value2"),
-              // DropDownValueModel(name: 'Groceries', value: "value3"),
-              // DropDownValueModel(name: 'subscriptions', value: "value4"),
-              // DropDownValueModel(name: 'Home Expense', value: "value5"),
-              // DropDownValueModel(name: 'Cloths', value: "value6"),
-              // DropDownValueModel(name: 'Lunch Expense', value: "value7"),
-              // DropDownValueModel(name: 'Medical Expense', value: "value8"),
-              // DropDownValueModel(name: 'Car Expense', value: "value9"),
-              // DropDownValueModel(name: 'Electronics', value: "value10"),
-              // ],
-              // listTextStyle:  TextStyle(color: Colors.black),
-              //   textFieldDecoration: InputDecoration(
-              //     hintText: 'Select The Type Of Expense',
-              //     hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color)
-              //   ),
-              //   searchDecoration: InputDecoration(
-              //     icon: Icon(Icons.search),
-              //     iconColor: Colors.black,
-              //     hintText: 'Search',
-              //     hintStyle: TextStyle(color: Colors.black),
-              //   ),
-              // dropDownItemCount: 10,
-              //
-              // onChanged: (val) {},
-              // ),
-              // ]
-              // )
-              // )
-              // )
-              //   ]),
-              //
-               SizedBox(height: 30,),
+              SizedBox(height: 20,),
+
+              //Dropdown
+              dropdown(),
+              //datepicker
+              SizedBox(height: 15,),
+              datepicker(),
+
+              SizedBox(height: 40,),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyButton(text: "Add", onPressed: onAdd),
-                  MyButton(text: "Cancel", onPressed: onCancel),
+                  MyButton(text: "Add", onPressed: widget.onAdd,),
+                  MyButton(text: "Cancel", onPressed: widget.onCancel),
                 ],)
             ],
           ),
@@ -122,4 +89,6 @@ class DialogBox extends StatelessWidget {
     );
   }
 }
+
+
 
