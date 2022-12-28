@@ -2,11 +2,11 @@
 import 'package:finapp/Drawer%20Pages/About.dart';
 import 'package:finapp/Drawer%20Pages/ProfilePage.dart';
 import 'package:finapp/Pages/HelloPage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Chart/IncomeSyncfusionSplineChart.dart';
 import '../Chart/syncfusion.dart';
-import '../Chart/syncfusionSplinechart.dart';
+import '../Chart/ExpenseSyncfusionSplineChart.dart';
 import '../Drawer Pages/SettingPage.dart';
 
 import '../Provider/ChangeThemeButton.dart';
@@ -20,7 +20,6 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
-  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,25 +36,18 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
           child: ListView(
             children: [
               SizedBox(height: 180,
-                child: UserAccountsDrawerHeader(currentAccountPicture: CircleAvatar(
-                  child: ClipOval(
-                    child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!,
-                    height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                child: UserAccountsDrawerHeader(currentAccountPicture:
+                 Icon(Icons.abc),
 
                   decoration: BoxDecoration(
                       color: Colors.blueGrey.shade900,
 
                   ),
                   accountName: Text(
-                      "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
+                      "",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                   ),
                   accountEmail: Text(
-                      "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                      "",style:TextStyle(fontSize: 16,
                       color: Colors.greenAccent),),
 
 
@@ -97,7 +89,6 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                 onTap: () async {
                   await FirebaseServices().SignOut();
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
-                  FirebaseAuth.instance.signOut();
                 },
               ),
 
@@ -127,7 +118,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                         children: [
                           TextSpan(text: "Welcome Back, ",style: GoogleFonts.bebasNeue(fontSize: 30,
                               color: Theme.of(context).textTheme.caption?.color)),
-                          TextSpan(text: "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30,
+                          TextSpan(text: "",style: GoogleFonts.bebasNeue(fontSize: 30,
                               color: Colors.greenAccent)),
                           // Navigator.push(context,                MaterialPageRoute(builder: (context) => const LoginPage()));
                         ]
@@ -354,10 +345,10 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
             SizedBox(height: 30,),
 
             Padding(
-              padding: const EdgeInsets.only(right: 100.0),
-              child: Text("Monthly Expense By Chart",
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text("Monthly And Yearly Expense & Income by Graphics",
                   style: GoogleFonts.bebasNeue(fontSize: 25,
-                      color: Theme.of(context).textTheme.caption?.color)),
+                      color: Theme.of(context).textTheme.caption?.color),textAlign: TextAlign.center,),
             ),
 
 
@@ -372,17 +363,21 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
               ),
             ),
 
-            SizedBox(height: 10),
+            SizedBox(height: 10,),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                height: 450,
-                width: 450,
-                child: syncfusionSplinechart(),
-              ),
+            Container(
+              height: 350,
+              width: 400,
+              child: ExpensesyncfusionSplinechart(),
             ),
-            SizedBox(height: 100),
+
+            SizedBox(height: 10,),
+
+            Container(
+              height: 500,
+              width: 400,
+              child: IncomesyncfusionSplinechart(),
+            ),
 
           ],
         ),

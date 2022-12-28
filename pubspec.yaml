@@ -31,7 +31,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.1.0
   http: ^0.13.5
 
 
@@ -41,13 +40,9 @@ dependencies:
   lottie: ^1.4.3
   google_fonts:
   font_awesome_flutter: ^10.2.1
-  firebase_auth: ^4.0.2
-  cloud_firestore: ^4.0.3
   flutter_svg: ^1.1.6
-  google_sign_in: ^5.4.2
   provider: ^6.0.4
   dropdown_textfield: ^1.0.6
-  fl_chart: ^0.55.2
   flutter_slidable: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -124,6 +119,8 @@ flutter:
     - Icons/lock.png
     - Icons/icons8-google-64.png
     - Icons/strong_dollar.jpg
+    - Icons/category.png
+    - Icons/dashboard.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

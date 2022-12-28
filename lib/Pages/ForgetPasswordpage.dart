@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 class ForgetPasswordpage extends StatefulWidget {
@@ -11,32 +11,13 @@ class ForgetPasswordpage extends StatefulWidget {
 class _ForgetPasswordpageState extends State<ForgetPasswordpage> {
   final _emailcontroller = TextEditingController();
 
+void PasswordReset(){
+  //TODO
+}
   @override
   void dispose() {
     _emailcontroller.dispose();
     super.dispose();
-  }
-  Future PasswordReset() async{
-    try{
-      await FirebaseAuth.instance.
-      sendPasswordResetEmail(email: _emailcontroller.text.trim());
-      showDialog(
-          context: context,
-          builder: (context){
-            return AlertDialog(
-              content: Text('Password Reset Link Sent to Your Email!Please Check Your Email'),
-            );
-          });
-    }on FirebaseAuthException catch (e) {
-      print(e);
-      showDialog(
-          context: context,
-          builder: (context){
-        return AlertDialog(
-          content: Text(e.message.toString()),
-        );
-      });
-    }
   }
   @override
   Widget build(BuildContext context) {

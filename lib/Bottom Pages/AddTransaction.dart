@@ -1,5 +1,4 @@
 import 'package:finapp/DataBase/DataBase.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -8,7 +7,7 @@ import '../Drawer Pages/ProfilePage.dart';
 import '../Drawer Pages/SettingPage.dart';
 import '../Pages/HelloPage.dart';
 import '../Provider/ChangeThemeButton.dart';
-import '../Utility/AddAlertDialog.dart';
+import '../Utility/AddTransactionAlertDialog.dart';
 import '../Utility/TransactionList.dart';
 import '../auth/signinwithgoogle.dart';
 
@@ -29,9 +28,9 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   void initState() {
     if(_myBox.get("TRANSACTIONLIST") == null){
-      db.createInitialData();
+      db.createInitialDataTransaction();
     }else{
-      db.loadData();
+      db.loadDataTransaction();
     }
     super.initState();
   }
@@ -41,21 +40,21 @@ class _AddTransactionState extends State<AddTransaction> {
       db.AddTransactionList.add([_controller.text,_amount.text]);
     });
     Navigator.of(context).pop();
-    db.UpdateData();
+    db.UpdateDataTransaction();
   }
 
   void Add_Trsnsaction(){
     showDialog(
       context: context,
       builder: (context) {
-        return DialogBox(
+        return TransactionDialogBox(
           NameController: _controller,
           AmountController: _amount,
           onAdd: saveTransaction,
           onCancel: () => Navigator.of(context).pop(),
         );
       },);
-    db.UpdateData();
+    db.UpdateDataTransaction();
   }
 
   void DeleteTransaction(int index){
@@ -63,7 +62,7 @@ class _AddTransactionState extends State<AddTransaction> {
       db.AddTransactionList.removeAt(index);
 
     });
-    db.UpdateData();
+    db.UpdateDataTransaction();
   }
 
   void Go_back_to_main(){
@@ -86,25 +85,15 @@ class _AddTransactionState extends State<AddTransaction> {
         child: ListView(
           children: [
             SizedBox(height: 180,
-              child: UserAccountsDrawerHeader(currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!,
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-
+              child: UserAccountsDrawerHeader(currentAccountPicture: Icon(Icons.abc),
                 decoration: BoxDecoration(
                   color: Colors.blueGrey.shade900,
-
                 ),
                 accountName: Text(
-                    "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
+                    "",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                 ),
                 accountEmail: Text(
-                  "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                  "",style:TextStyle(fontSize: 16,
                     color: Colors.cyan[200]),),
 
 
@@ -146,7 +135,6 @@ class _AddTransactionState extends State<AddTransaction> {
               onTap: () async {
                 await FirebaseServices().SignOut();
                 Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
-                FirebaseAuth.instance.signOut();
               },
             ),
 
@@ -163,7 +151,7 @@ class _AddTransactionState extends State<AddTransaction> {
       ),
     ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.cyan[600],
+        backgroundColor: Colors.greenAccent,
         onPressed: Add_Trsnsaction,
         child: ImageIcon(AssetImage('Icons/add.png'),color: Theme.of(context).bottomAppBarColor),
       ),
@@ -178,85 +166,6 @@ class _AddTransactionState extends State<AddTransaction> {
               DeleteList: (context) => DeleteTransaction(index),
           );
       }
-        // children: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 35.0),
-        //     child: Row(
-        //       children: [
-        //         Text("Welcome Back,  Robel Ephrem",
-        //           style: GoogleFonts.bebasNeue(fontSize: 25,
-        //               color: Theme.of(context).textTheme.caption?.color),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        //     child: Container(
-        //         height: 100,
-        //         width: 350,
-        //         decoration: BoxDecoration(
-        //             color: Colors.deepPurpleAccent,
-        //             borderRadius: BorderRadius.circular(15)
-        //         ),
-        //         child: Center(
-        //           child: Row(
-        //             children: [
-        //               SizedBox(
-        //                   height: 60,
-        //                   width: 100,
-        //                   child: Image.asset('Icons/credit.png')),
-        //
-        //               Padding(
-        //                 padding: const EdgeInsets.only(left: 25.0),
-        //                 child: Column(
-        //                   children: [
-        //                     SizedBox(height: 20,),
-        //                     Text("Total Amount  ",
-        //                         style: GoogleFonts.aBeeZee(fontSize: 18,
-        //                             color: Theme.of(context).textTheme.caption?.color)),
-        //
-        //                     SizedBox(height: 10,),
-        //
-        //                     Column(
-        //                       children: [
-        //                         Padding(
-        //                           padding: const EdgeInsets.only(right: 15.0),
-        //                           child: Text("100,000.00",
-        //                               style: GoogleFonts.aBeeZee(fontSize: 18,
-        //                                   color: Theme.of(context).textTheme.caption?.color)),
-        //                         ),
-        //                       ],
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         )
-        //     ),
-        //   ),
-        //   TransactionList(
-        //     TransactionName: 'Laptop',
-        //     TransactionAmount:"100,000",
-        //   ),
-        //   TransactionList(
-        //     TransactionName: 'Car Repair',
-        //     TransactionAmount:"50,000",
-        //   ),
-        //   TransactionList(
-        //     TransactionName: 'Plain Ticket',
-        //     TransactionAmount:"40,000",
-        //   ),
-        //   TransactionList(
-        //     TransactionName: 'Watch',
-        //     TransactionAmount:"15,000",
-        //   ),
-        //   TransactionList(
-        //     TransactionName: 'Gym',
-        //     TransactionAmount:"5,000",
-        //   ),
-
       ),
     );
   }

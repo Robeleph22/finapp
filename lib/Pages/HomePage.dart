@@ -1,5 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import '../Bottom Pages/AddTransaction.dart';
 import '../Bottom Pages/Wallet.dart';
@@ -24,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     WelcomePage(),
     AddTransaction(),
-    ReportPage(),
+    AddCatagory(),
   ];
 
   @override
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 0,
-        fixedColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        fixedColor: Colors.greenAccent,
         iconSize: 30,
         currentIndex: _selectedIndex,
         onTap: _NavigetorBottomBar,
@@ -47,17 +46,17 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon:
 
           SizedBox(height: 25,
-              child: ImageIcon(AssetImage('Icons/home-page.png'),color: Colors.white,)),label: 'home'),
+              child: ImageIcon(AssetImage('Icons/dashboard.png'),color: Colors.greenAccent,)),label: 'Dashbored'),
 
           BottomNavigationBarItem(icon:
 
           SizedBox(height: 25,
-              child: ImageIcon(AssetImage('Icons/transaction.png'),color:Colors.white,)),label: 'Transaction'),
+              child: ImageIcon(AssetImage('Icons/transaction.png'),color:Colors.greenAccent,)),label: 'Transaction'),
 
           BottomNavigationBarItem(icon:
 
           SizedBox(height: 25,
-              child: ImageIcon(AssetImage('Icons/wallet.png'),color: Colors.white,)),label: 'Wallet'),
+              child: ImageIcon(AssetImage('Icons/category.png'),color: Colors.greenAccent,)),label: 'Category'),
 
 
 

@@ -1,5 +1,8 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+import '../DataBase/DataBase.dart';
 
 class dropdown extends StatefulWidget {
   const dropdown({Key? key}) : super(key: key);
@@ -9,6 +12,8 @@ class dropdown extends StatefulWidget {
 }
 
 class _dropdownState extends State<dropdown> {
+  final _myBox = Hive.box('mybox');
+  AppDataBase db = AppDataBase();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
   @override
@@ -32,34 +37,29 @@ class _dropdownState extends State<dropdown> {
                       listPadding: ListPadding(top: 15),
                       enableSearch: false,
                       validator: (value) {
+                      print("FU " + value.toString());
                         if (value == null) {
                           return "Required field";
                         } else {
                           return null;
                         }
                       },
-                      dropDownItemCount: 10,
+                      dropDownItemCount: 2,
                       dropDownList: [
-                        DropDownValueModel(name: 'Gym', value: "value1"),
-                        DropDownValueModel(name: 'School', value: "value2"),
-                        DropDownValueModel(name: 'Groceries', value: "value3"),
-                        DropDownValueModel(name: 'subscriptions', value: "value4"),
-                        DropDownValueModel(name: 'Home Expense', value: "value5"),
-                        DropDownValueModel(name: 'Cloths', value: "value6"),
-                        DropDownValueModel(name: 'Lunch Expense', value: "value7"),
-                        DropDownValueModel(name: 'Medical Expense', value: "value8"),
-                        DropDownValueModel(name: 'Car Expense', value: "value9"),
-                        DropDownValueModel(name: 'Electronics', value: "value10"),
+                        DropDownValueModel(name: 'Income', value: "Income"),
+                        DropDownValueModel(name: 'Expense', value: "Expense"),
                       ],
                       listTextStyle:  TextStyle(color: Colors.black),
                       textFieldDecoration: InputDecoration(
-                        hintText: 'Select The Type Of Expense',
+                        hintText: 'Select The Type Of Transaction',
                         hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
                         enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey,)),
                         border: UnderlineInputBorder(borderSide: BorderSide.none),
                       ),
-
-                      onChanged: (val) {},
+                      onChanged: (val) {
+                        _myBox.put("TYPEOFTRANSACTION", val.value.toString());
+                        print(val.value.toString());
+                      },
                     ),
                   ),
                 ],

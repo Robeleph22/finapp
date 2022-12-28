@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'Provider/themeprovider.dart';
 import 'auth/MainPage.dart';
-import 'firebase_options.dart';
+
 
 void main () async {
   await Hive.initFlutter();
 
   var box = await Hive.openBox('mybox');
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  var auth = await Hive.openBox('auth');
+
 
   runApp(const MyApp());
 }

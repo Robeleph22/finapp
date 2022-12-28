@@ -1,23 +1,77 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:finapp/DataBase/DataBase.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-
+import 'package:hive/hive.dart';
 import '../Drawer Pages/About.dart';
 import '../Drawer Pages/ProfilePage.dart';
 import '../Drawer Pages/SettingPage.dart';
 import '../Pages/HelloPage.dart';
 import '../Provider/ChangeThemeButton.dart';
+import '../Utility/AddCatagoryAlertDialog.dart';
+import '../Utility/AddTransactionAlertDialog.dart';
+import '../Utility/CatagoryList.dart';
+import '../Utility/TransactionList.dart';
 import '../auth/signinwithgoogle.dart';
 
-class ReportPage extends StatefulWidget {
-  const ReportPage({Key? key}) : super(key: key);
+
+class AddCatagory extends StatefulWidget {
+  const AddCatagory({Key? key}) : super(key: key);
 
   @override
-  State<ReportPage> createState() => _ReportPageState();
+  State<AddCatagory> createState() => _AddCatagoryState();
 }
 
-class _ReportPageState extends State<ReportPage> {
+class _AddCatagoryState extends State<AddCatagory> {
+  final _transaction = TextEditingController();
+  final _catname = TextEditingController();
+  final _icons = TextEditingController();
+  final _myBox = Hive.box('MyBOx');
+  AppDataBase db = AppDataBase();
+
+  @override
+  void initState() {
+    if(_myBox.get("CATAGORYLIST") == null){
+      db.createInitialDataCatagory();
+    }else{
+      db.loadDataCatagory();
+    }
+    super.initState();
+  }
+
+  void saveTransaction(){
+    setState(() {
+      db.AddCatagoryList.add([_catname.text,_icons.text,_transaction.text]);
+    });
+    Navigator.of(context).pop();
+    db.UpdateDataCatagory();
+  }
+
+  void Add_Trsnsaction(){
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CatagoryDialogBox(
+          CatagoryNameController: _catname,
+          IconController: _icons,
+          TransactionController: _transaction,
+          onAdd: saveTransaction,
+          onCancel: () => Navigator.of(context).pop(),
+        );
+      },);
+    db.UpdateDataCatagory();
+  }
+
+  void DeleteTransaction(int index){
+    setState(() {
+      db.AddCatagoryList.removeAt(index);
+    });
+    db.UpdateDataCatagory();
+  }
+
+  void Go_back_to_main(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +80,7 @@ class _ReportPageState extends State<ReportPage> {
       AppBar(
         iconTheme: Theme.of(context).iconTheme,
         backgroundColor: Colors.blueGrey.shade900,
-        title: Center(child: Text('Add Income',style: TextStyle(color: Colors.white))),
+        title: Center(child: Text('Catagory',style: TextStyle(color: Colors.white),)),
       ),
       drawer: Drawer(
         child: Container(
@@ -34,25 +88,15 @@ class _ReportPageState extends State<ReportPage> {
           child: ListView(
             children: [
               SizedBox(height: 180,
-                child: UserAccountsDrawerHeader(currentAccountPicture: CircleAvatar(
-                  child: ClipOval(
-                    child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!,
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-
+                child: UserAccountsDrawerHeader(currentAccountPicture: Icon(Icons.abc),
                   decoration: BoxDecoration(
                     color: Colors.blueGrey.shade900,
-
                   ),
                   accountName: Text(
-                      "${FirebaseAuth.instance.currentUser?.displayName}",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
+                      "",style: GoogleFonts.bebasNeue(fontSize: 30, color: Theme.of(context).textTheme.caption?.color)
                   ),
                   accountEmail: Text(
-                    "${FirebaseAuth.instance.currentUser?.email}",style:TextStyle(fontSize: 16,
+                    "",style:TextStyle(fontSize: 16,
                       color: Colors.cyan[200]),),
 
 
@@ -94,7 +138,6 @@ class _ReportPageState extends State<ReportPage> {
                 onTap: () async {
                   await FirebaseServices().SignOut();
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HelloPage()));
-                  FirebaseAuth.instance.signOut();
                 },
               ),
 
@@ -110,79 +153,23 @@ class _ReportPageState extends State<ReportPage> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
+        onPressed: Add_Trsnsaction,
+        child: ImageIcon(AssetImage('Icons/add.png'),color: Theme.of(context).bottomAppBarColor),
+      ),
 
-      //Body
 
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Lottie.network('https://assets8.lottiefiles.com/packages/lf20_qxemgrnw.json',height: 250,width: 300),
-
-              Text('By Adding Your  Income You Can Manage Your Expense ',style: TextStyle(
-            fontSize: 23,
-            color: Theme.of(context).textTheme.caption?.color,
-          ),textAlign: TextAlign.center,),
-
-              SizedBox(height: 25,),
-
-              SizedBox(height: 50,width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child:  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueGrey.withOpacity(0.6),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-
-                      color:Theme.of(context).backgroundColor,
-                      border: Border.all(color: Colors.blueGrey.shade900),
-                      borderRadius: BorderRadius.circular(12),
-
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: TextField(
-                        style: TextStyle(color: Theme.of(context).textTheme.caption?.color),
-                        decoration: InputDecoration(
-                           icon: SizedBox(
-                             height: 35,
-                               width: 35,
-                               child: Image.asset('Icons/dollar.png')),
-                          // icon: Icon(Icons.lock,color: Theme.of(context).iconTheme.color),
-                          border: InputBorder.none,
-                          hintText: "100,000.00",
-                          hintStyle: TextStyle(color: Theme.of(context).textTheme.caption?.color),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 50,),
-
-              SizedBox(height: 50,width: 300,
-                child: ElevatedButton(onPressed: () {
-
-                },
-                    child: Text('Add Income',style: TextStyle(
-                      fontSize: 20,
-                      color:Colors.white,
-                    )),
-                  style: ElevatedButton.styleFrom(
-                  primary: Colors.blueGrey.shade900,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  )
-                ),
-              )
-            ],
-          ),
-        ),
+      body:ListView.builder(
+          itemCount: db.AddCatagoryList.length,
+          itemBuilder: (context, index){
+            return CatagoryList(
+              CatagoryName: db.AddCatagoryList[index][0],
+              Icon: db.AddCatagoryList[index][2],
+              TransactionType: db.AddCatagoryList[index][1],
+              DeleteList: (context) => DeleteTransaction(index),
+            );
+          }
       ),
     );
   }

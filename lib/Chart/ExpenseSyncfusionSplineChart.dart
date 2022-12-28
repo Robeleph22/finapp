@@ -2,14 +2,14 @@ import 'package:finapp/Chart/syncfusion.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class syncfusionSplinechart extends StatefulWidget {
-  const syncfusionSplinechart({Key? key}) : super(key: key);
+class ExpensesyncfusionSplinechart extends StatefulWidget {
+  const ExpensesyncfusionSplinechart({Key? key}) : super(key: key);
 
   @override
-  State<syncfusionSplinechart> createState() => _syncfusionSplinechartState();
+  State<ExpensesyncfusionSplinechart> createState() => _ExpensesyncfusionSplinechartState();
 }
 
-class _syncfusionSplinechartState extends State<syncfusionSplinechart> {
+class _ExpensesyncfusionSplinechartState extends State<ExpensesyncfusionSplinechart> {
   late List<ExpenseData> _chartData;
 
   @override
@@ -26,17 +26,22 @@ class _syncfusionSplinechartState extends State<syncfusionSplinechart> {
             SfCartesianChart(
             primaryXAxis: CategoryAxis(),
           // Chart title
-          title: ChartTitle(text: 'Half yearly sales analysis'),
+          title: ChartTitle(text: '6 Month Expense bar chart'),
           // Enable legend
           legend: Legend(isVisible: true),
           // Enable tooltip
+                enableAxisAnimation: true,
+
           tooltipBehavior: TooltipBehavior(enable: true),
           series: <ChartSeries<ExpenseData, String>>[
             LineSeries<ExpenseData, String>(
                 dataSource: _chartData,
                 xValueMapper: (ExpenseData sales, _) => sales.Month,
                 yValueMapper: (ExpenseData sales, _) => sales.Expense,
-                name: 'Expense',
+                name: "Expense",
+                color: Colors.cyan[500],
+                width: 3,
+
                 // Enable data label
                 dataLabelSettings: DataLabelSettings(isVisible: true))
           ]),
@@ -54,12 +59,6 @@ class _syncfusionSplinechartState extends State<syncfusionSplinechart> {
       ExpenseData("Apr", 150000),
       ExpenseData("Jun", 60000),
       ExpenseData("Jul", 20000),
-      ExpenseData("Aug", 25000),
-      ExpenseData("Sep", 50000),
-      ExpenseData("Oct", 15000),
-      ExpenseData("sep", 5000),
-      ExpenseData("Nov", 2000),
-      ExpenseData("Dec", 100000),
     ];
     return chartData;
   }

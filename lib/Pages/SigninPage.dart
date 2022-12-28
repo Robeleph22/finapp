@@ -1,13 +1,14 @@
 
+import 'package:finapp/API/UserAPI.dart';
+import 'package:finapp/DataBase/DataBase.dart';
 import 'package:finapp/Pages/HomePage.dart';
 import 'package:finapp/Utility/SqureTile.dart';
 import 'package:finapp/auth/signinwithgoogle.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../API/AuthAPI.dart';
 import 'ForgetPasswordpage.dart';
 import 'SignUp.dart';
 
@@ -23,19 +24,14 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordcontroller = TextEditingController();
 
   Future signin() async{
-    try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailcontroller.text, password: _passwordcontroller.text);
-    }on FirebaseAuthException catch (e) {
-      print(e.message);
-
-      showDialog(context: context, builder: (context){
-        return AlertDialog(
-          content: Text(e.message.toString()),
-        );
-      });
-    }
-    Navigator.pop(context);
+   var token = await  Auth.fromUser().authSignIn(Auth(email: _emailcontroller.text,password: _passwordcontroller.text));
+   print(token);
+   if(token != "errorrr"){
+     AppDataBase.setToken(token);
+     //AppDataBase.authbox.delete("token");
+     //print(AppDataBase.getToken());
+     Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage()));
+   }
   }
 
   @override
@@ -189,8 +185,8 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                      onPressed: () {
-                        signin();
+                      onPressed: () async {
+                        await signin();
                       },
                       child: Text('Signin',
                         style: TextStyle(color: Colors.white,

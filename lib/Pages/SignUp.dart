@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:finapp/API/AuthAPI.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../API/UserAPI.dart';
 import '../Utility/SqureTile.dart';
 import '../auth/signinwithgoogle.dart';
 import 'HomePage.dart';
@@ -34,33 +35,20 @@ class _SignUpState extends State<SignUp> {
 
 
   Future signup() async{
-    if (PasswordConfirmed()){
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: _emailcontroller.text.trim(),
-              password: _passwordcontroller.text.trim(),
-          );
+    var users = await  Auth.fromUser().signUp(User(email: _emailcontroller.text,password: _passwordcontroller.text,userName: _username.text,));
+    print(users.userName);
+    print(users.email);
+    print(users.userId);
+    Navigator.pop(context);
+    }
 
-          //add user details
-      addUserDetails(
-          _firstnamecontroller.text.trim(),
-          _lastnamecontroller.text.trim(),
-          _username.text.trim(),
-          _emailcontroller.text.trim(),
-      );
-    }Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-  }
   Future addUserDetails
       ( String firstname, String lastname, String username, String email)async{
-
+    //TODO
     print(
         firstname + lastname + username + email
     );
-    await FirebaseFirestore.instance.collection('User').add({
-      'first name':firstname ,
-      'last name': lastname,
-      'user name': username,
-      'email ': email,
-    });
+
 
   }
   bool PasswordConfirmed(){

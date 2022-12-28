@@ -25,7 +25,7 @@ class _syncfusionPiechartState extends State<syncfusionPiechart> {
     return SafeArea(
       child: Scaffold(
         body:SfCircularChart(
-          title: ChartTitle(text: "This Year Expense With Pie Chart"),
+          title: ChartTitle(text: "This Year Expense With Pie Chart",),
           legend: Legend(isVisible: true,overflowMode: LegendItemOverflowMode.wrap),
           tooltipBehavior: _tooltipBehavior,
           series: <CircularSeries>[
